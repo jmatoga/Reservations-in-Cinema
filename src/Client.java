@@ -1,7 +1,11 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 //Klasa Klient (nazwisko, imię, mail, telefon, seans, miejsce/miejsca - kolekcja)
-public class Client {
+public class Client implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -7887612267521882048L;
     String name;
     String surname;
     String email;

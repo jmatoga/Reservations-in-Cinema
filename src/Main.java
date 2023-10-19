@@ -5,50 +5,66 @@
 //        liczba miejsc - HashMap<Character, HashMap<Integer, Boolean>>)
 //        zapis/odczyt danych z pliku, serializacja.
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Scanner myObj = new Scanner(System.in);
         List<String> bookedSeats = new ArrayList<>();
         String name, surname, email, phoneNumber;
         int numberOfTicket=0;
-        Seance film1 = new Seance("Avatar", "18-10-2023", "12:30", "18");
-        Seance film2 = new Seance("Odlot", "18-10-2023", "17:30", "13");
-        Seance film3 = new Seance("Auto", "18-10-2023", "20:30", "7");
-        Seance film4 = new Seance("Samoloty", "19-10-2023", "18:30", "16");
-        Seance film5 = new Seance("Star Wars", "19-10-2023", "20:30", "16");
 
+        ReadWriteFile file = new ReadWriteFile();
 
+        System.out.print("Jaki film wybierasz? Podaj numer 1-5\n>> ");
+        int whichSeance = myObj.nextInt();
+        Seance whichSeanceChoosed = switch (whichSeance) {
+            case 1 -> file.film1;
+            case 2 -> file.film2;
+            case 3 -> file.film3;
+            case 4 -> file.film4;
+            case 5 -> file.film5;
+            default -> null;
+        };
 
         //Rezerwacja miejsc
-        film1.showSeats();
-        System.out.println("Podaj ile biletów chcesz zarezerwować:\n ");
+        System.out.println("Oto lista dostępnych miejsc:");
+        whichSeanceChoosed.showSeats();
+        System.out.print("\nPodaj ile biletów chcesz zarezerwować:\n>>  ");
         numberOfTicket = myObj.nextInt();
+
+        boolean ifRightSeats=false;
         for (int i=0; i<numberOfTicket;i++){
-            System.out.println("Podaj miejsce:\n ");
-            String temp = myObj.next();
-            bookedSeats.add(temp);
+            while(!ifRightSeats) {
+                System.out.print("Podaj " + (i + 1) + ". miejsce:\n>>  ");
+                String temp = myObj.next();
+                ifRightSeats = whichSeanceChoosed.bookSeats(temp);
+                bookedSeats.add(temp);
+            }
+            ifRightSeats = false;
         }
-        film1.bookSeats(bookedSeats);
-        film1.showSeats();
 
+        System.out.println("\nAktualny wygląd zarezerwowanych miejsc: ");
+        whichSeanceChoosed.showSeats();
 
+        System.out.println("\nDane do rezerwacji biletu: ");
+        System.out.print("Podaj imie:\n>> ");
+        name = myObj.next();
+        System.out.print("Podaj nazwisko:\n>> ");
+        surname = myObj.next();
+        System.out.print("Podaj email:\n>> ");
+        email = myObj.next();
+        System.out.print("Podaj numer telefonu:\n>> ");
+        phoneNumber = myObj.next();
 
-        System.out.println("Podaj dane do rezerwacji biletu:\n ");
-        System.out.println("Podaj imie: ");
-        name = myObj.nextLine();
-        System.out.println("Podaj nazwisko: ");
-        surname = myObj.nextLine();
-        System.out.println("Podaj email: ");
-        email = myObj.nextLine();
-        System.out.println("Podaj numer telefonu: ");
-        phoneNumber = myObj.nextLine();
+        Client client1 = new Client(name, surname,email,phoneNumber,whichSeanceChoosed,bookedSeats);
+        file.saveClientToFile(client1);
 
-        Client client = new Client(name, surname,email,phoneNumber,film1,null);
-
+        System.out.println("done");
+        // save all changes (seats) to file
+        file.saveSeatToFile();
     }
 }
-
