@@ -1,7 +1,8 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class ReadWriteFile {
-    Client client;
+    ArrayList<Client> clientList;
     Seance film1;
     Seance film2;
     Seance film3;
@@ -24,8 +25,6 @@ public class ReadWriteFile {
             Seance f4 = new Seance("Samoloty", "19-10-2023", "18:30", "16");
             Seance f5 = new Seance("Star Wars", "19-10-2023", "20:30", "16");
 
-            Client c1 = new Client("a","a","a","a",null, null);
-
             fileOut.writeObject(f1);
             fileOut.writeObject(f2);
             fileOut.writeObject(f3);
@@ -34,18 +33,14 @@ public class ReadWriteFile {
             fileOut.close();
         }
 
-        File file1 = new File(".\\client.dat");
+        File file1 = new File(".\\clients.dat");
         boolean flag1=true;
         if(!file1.exists() || file1.length() == 0) {
             flag1 = false;
             // tworzymy obiekt klasy ObjectOutputStream do zapisywania do pliku
-            ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream(".\\client.dat"));
-
-            // tworzymy obiekt klasy Seance, który chcemy zapisać
-            System.out.println("Oto lista KLIENTOW:");
-            Client c1 = new Client("a","a","a","a",null, null);
-
-            fileOut.writeObject(c1);
+            ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream(".\\clients.dat"));
+            ArrayList<Client> cl = new ArrayList<>();
+            fileOut.writeObject(cl);
             fileOut.close();
         }
 
@@ -60,10 +55,9 @@ public class ReadWriteFile {
         this.film5 = (Seance) fileIn.readObject();
         fileIn.close();
 
-
-        ObjectInputStream fileIn1 = new ObjectInputStream(new FileInputStream(".\\client.dat"));
-        this.client = (Client) fileIn1.readObject();
-        System.out.println(this.client.toString());
+        // odczytujemy z pliku; (ArrayList<Client>) - to rzutowanie z Object na ArrayList<Client>
+        ObjectInputStream fileIn1 = new ObjectInputStream(new FileInputStream(".\\clients.dat"));
+        this.clientList = (ArrayList<Client>) fileIn1.readObject();
         fileIn1.close();
 
         if(flag) {
@@ -72,10 +66,6 @@ public class ReadWriteFile {
             System.out.println(this.film3.toString1());
             System.out.println(this.film4.toString1());
             System.out.println(this.film5.toString1());
-        }
-
-        if(flag1) {
-            System.out.println(this.client.toString());
         }
     }
 
@@ -89,8 +79,10 @@ public class ReadWriteFile {
         fileOut.writeObject(this.film5);
     }
 
-    public void saveClientToFile(Client client1) throws IOException {
-        ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream(".\\client.dat"));
-        fileOut.writeObject(client1);
+    public void saveClientToFile(Client client) throws IOException {
+        ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream(".\\clients.dat"));
+        clientList.add(client);
+        fileOut.writeObject(clientList);
+        fileOut.close();
     }
 }

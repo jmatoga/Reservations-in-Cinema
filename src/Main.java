@@ -1,10 +1,3 @@
-//Napisz program realizujący rezerwację/kupno biletów do kina:
-//
-//        Klasa Klient (nazwisko, imię, mail, telefon, seans, miejsce/miejsca - kolekcja)
-//        Klasa Seans (tytuł, dzień, godzina, ograniczenia wiekowe,
-//        liczba miejsc - HashMap<Character, HashMap<Integer, Boolean>>)
-//        zapis/odczyt danych z pliku, serializacja.
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +40,7 @@ public class Main {
             ifRightSeats = false;
         }
 
-        System.out.println("\nAktualny wygląd zarezerwowanych miejsc: ");
+        System.out.println("\nAktualny wygląd zarezerwowanych miejsc (true to miejsce zajęte): ");
         whichSeanceChoosed.showSeats();
 
         System.out.println("\nDane do rezerwacji biletu: ");
@@ -60,11 +53,12 @@ public class Main {
         System.out.print("Podaj numer telefonu:\n>> ");
         phoneNumber = myObj.next();
 
-        Client client1 = new Client(name, surname,email,phoneNumber,whichSeanceChoosed,bookedSeats);
-        file.saveClientToFile(client1);
+        Client client = new Client(name, surname,email,phoneNumber,whichSeanceChoosed,bookedSeats);
+        file.saveClientToFile(client);
 
-        System.out.println("done");
         // save all changes (seats) to file
         file.saveSeatToFile();
+
+        System.out.println("Dziękujemy za pomyślną rezerwację! Życzymy udanego seansu.");
     }
 }

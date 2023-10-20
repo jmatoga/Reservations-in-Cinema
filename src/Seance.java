@@ -1,7 +1,6 @@
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.lang.String;
 
 public class Seance implements Serializable {

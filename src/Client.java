@@ -2,7 +2,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-//Klasa Klient (nazwisko, imię, mail, telefon, seans, miejsce/miejsca - kolekcja)
 public class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = -7887612267521882048L;
@@ -26,11 +25,12 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", seats=" + seats +
-                '}';
+                       "name='" + name + '\'' +
+                       ", surname='" + surname + '\'' +
+                       ", email='" + email + '\'' +
+                       ", phoneNumber='" + phoneNumber + '\'' +
+                       ", seance=" + seance.toString1() + // wyswietlanie bez siedzen (true/false)
+                       ", seats=" + seats +
+                       '}';
     }
 }
