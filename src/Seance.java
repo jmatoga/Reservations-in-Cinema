@@ -27,7 +27,7 @@ public class Seance implements Serializable {
             }
         }
 
-        System.out.println(this.toString1());
+        System.out.println(this.showSeance());
     }
 
     public void showSeats(){
@@ -70,12 +70,7 @@ public class Seance implements Serializable {
                 '}';
     }
 
-    public String toString1() {
-        return "Seance{" +
-                       "title='" + title + '\'' +
-                       ", day='" + day + '\'' +
-                       ", hour='" + hour + '\'' +
-                       ", ageRequirement='" + ageRequirement + '\'' +
-                       '}';
+    public String showSeance() {
+        return "\"" + title + "\" " + day + " " + hour +", age:" + ageRequirement;
     }
 }

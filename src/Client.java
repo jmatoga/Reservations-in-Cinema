@@ -29,7 +29,7 @@ public class Client implements Serializable {
                        ", surname='" + surname + '\'' +
                        ", email='" + email + '\'' +
                        ", phoneNumber='" + phoneNumber + '\'' +
-                       ", seance=" + seance.toString1() + // wyswietlanie bez siedzen (true/false)
+                       ", seance=" + seance.showSeance() + // wyswietlanie bez siedzen (true/false)
                        ", seats=" + seats +
                        '}';
     }

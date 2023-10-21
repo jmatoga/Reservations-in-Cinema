@@ -61,11 +61,11 @@ public class ReadWriteFile {
         fileIn1.close();
 
         if(flag) {
-            System.out.println(this.film1.toString1());
-            System.out.println(this.film2.toString1());
-            System.out.println(this.film3.toString1());
-            System.out.println(this.film4.toString1());
-            System.out.println(this.film5.toString1());
+            System.out.println(this.film1.showSeance());
+            System.out.println(this.film2.showSeance());
+            System.out.println(this.film3.showSeance());
+            System.out.println(this.film4.showSeance());
+            System.out.println(this.film5.showSeance());
         }
     }
 
